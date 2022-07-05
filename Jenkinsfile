@@ -1,6 +1,8 @@
 pipeline {
     agent any
-    properties([ parameters([ choice( choices: ['ONE', 'TWO'])])])
+    parameters {
+        choice(name: 'choices', choices: ['one', 'two'])
+    }
     stages { 
         stage('Clone') {
             steps {
