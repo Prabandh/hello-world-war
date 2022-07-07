@@ -10,7 +10,7 @@ pipeline {
              sh 'git clone https://github.com/Prabandh/hello-world-war.git'
             }
         }
-            stage('building') {
+            stage('mouse') {
             steps {
              sh 'mvn package'
             }
