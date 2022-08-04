@@ -10,7 +10,7 @@ pipeline {
         
         stage('docker login') {
             steps {
-               sh 'sudo docker login --username=prabandh --password=Thisisdochubpw@22'
+               sh 'sudo docker login --username=prabandh --password=Thisisdockhubpw@22'
                sh 'sudo docker tag mydoc:latest prabandh/mydoc:latest'
             }
         }
