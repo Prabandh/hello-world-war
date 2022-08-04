@@ -27,7 +27,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh 'sudo docker run -d -p 8090:8080 prabandh/mydoc:latest'
+                sh 'sudo docker run -d -p 9090:8080 prabandh/mydoc:latest'
             }
         }
         }
