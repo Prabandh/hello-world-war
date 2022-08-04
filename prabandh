@@ -1,0 +1,34 @@
+pipeline {
+    agent {label 'slave'}
+    stages { 
+         stage('Docker image') {
+            steps {
+               sh 'cd /home/ubuntu/dockerdoc/hello-world-war'
+                sh 'sudo docker build -t mydoc .'
+            }
+        }
+        
+        stage('docker login') {
+            steps {
+               sh 'sudo docker login --username=prabandh --password=Thisisdochubpw@22'
+               sh 'sudo docker tag mydoc:latest prabandh/mydoc:latest'
+            }
+        }
+        
+        stage('push') {
+            steps {
+                sh 'sudo docker push prabandh/mydoc:latest'
+            }
+        }
+        stage('pull') {
+            steps {
+                sh 'sudo docker pull prabandh/mydoc:latest'
+            }
+        }
+        stage('deploy') {
+            steps {
+                sh 'sudo docker run -d -p 8090:8080 prabandh/mydoc:latest'
+            }
+        }
+        }
+        }
