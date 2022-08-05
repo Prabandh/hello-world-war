@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'slave2'}
+    agent none
     stages { 
          stage('Docker image') {
             steps {
@@ -10,7 +10,7 @@ pipeline {
         
         stage('docker login') {
             steps {
-               sh 'sudo docker login --username=prabandh --password=***********'
+               sh 'sudo docker login --username=prabandh --password=Thisisdockpw@22'
                sh 'sudo docker tag mydoc:latest prabandh/mydoc:latest'
             }
         }
@@ -25,7 +25,16 @@ pipeline {
                 sh 'sudo docker pull prabandh/mydoc:latest'
             }
         }
-        stage('deploy') {
+        stage('Parallel deploy') {
+            parallel{
+                stage('from first node deploy'){
+                    agent {lable: "slave2"}
+            steps {
+                sh 'sudo docker run -d -p 9090:8080 prabandh/mydoc:latest'
+            }
+        }
+        stage('from second node deploy'){
+                    agent {lable: "slave3"}
             steps {
                 sh 'sudo docker run -d -p 9090:8080 prabandh/mydoc:latest'
             }
